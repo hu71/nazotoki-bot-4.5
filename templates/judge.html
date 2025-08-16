@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>判定フォーム</title>
+</head>
+<body>
+    <h1>判定フォーム</h1>
+    {% for user in users %}
+    <div style="margin-bottom:20px; border:1px solid #ccc; padding:10px;">
+        <p>{{ user.name }}（第{{ user.q }}問）</p>
+        <img src="{{ user.img_url }}" alt="user image" style="max-width:300px;"><br><br>
+        {% if user.q == 5 %}
+            <a href="/send/{{ user.user_id }}/good"><button>正解（GOOD）</button></a>
+            <a href="/send/{{ user.user_id }}/bad"><button>正解（BAD）</button></a>
+            <a href="/send/{{ user.user_id }}/wrong"><button>不正解</button></a>
+        {% else %}
+            <a href="/send/{{ user.user_id }}/correct"><button>正解</button></a>
+            <a href="/send/{{ user.user_id }}/wrong"><button>不正解</button></a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>

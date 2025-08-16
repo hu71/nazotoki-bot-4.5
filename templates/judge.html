@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>判定フォーム</title>
 </head>
 <body>
-    <h1>判定フォーム</h1>
-    {% for user in users %}
-    <div style="margin-bottom:20px; border:1px solid #ccc; padding:10px;">
-        <p>{{ user.name }}（第{{ user.q }}問）</p>
-        <img src="{{ user.img_url }}" alt="user image" style="max-width:300px;"><br><br>
-        {% if user.q == 5 %}
-            <a href="/send/{{ user.user_id }}/good"><button>正解（GOOD）</button></a>
-            <a href="/send/{{ user.user_id }}/bad"><button>正解（BAD）</button></a>
-            <a href="/send/{{ user.user_id }}/wrong"><button>不正解</button></a>
-        {% else %}
-            <a href="/send/{{ user.user_id }}/correct"><button>正解</button></a>
-            <a href="/send/{{ user.user_id }}/wrong"><button>不正解</button></a>
+<h1>判定フォーム</h1>
+{% for user_id in users %}
+    <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+        <p>ユーザーID: {{ user_id }}</p>
+        <p>現在の問題番号: {{ progress[user_id] }}</p>
+        <img src="/image/{{ user_id }}" width="200"><br><br>
+        {% if progress[user_id] < 4 %}
+            <a href="/send_result/{{ user_id }}/correct">正解</a> |
+            <a href="/send_result/{{ user_id }}/wrong">不正解</a>
+        {% elif progress[user_id] == 4 %}
+            <a href="/send_result/{{ user_id }}/correct1">正解1</a> |
+            <a href="/send_result/{{ user_id }}/correct2">正解2</a> |
+            <a href="/send_result/{{ user_id }}/wrong">不正解</a>
+        {% elif progress[user_id] == 5 %}
+            <a href="/send_result/{{ user_id }}/correct">正解</a> |
+            <a href="/send_result/{{ user_id }}/wrong">不正解</a>
         {% endif %}
     </div>
-    {% endfor %}
+{% endfor %}
 </body>
 </html>
